@@ -17,7 +17,7 @@ class MyPlayer extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
           color: Colors.teal,
         ),
-        height: 10,
+        height: 15,
         width: MediaQuery.of(context).size.width * playerWidth / 2,
       ),
     );

@@ -1,5 +1,8 @@
+import 'package:brick_breaker/gamepage.dart';
 import 'package:brick_breaker/homepage.dart';
+import 'package:brick_breaker/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,9 +13,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      initialRoute: HomeScreen.route,
+      theme: ThemeData.light().copyWith(
+        scaffoldBackgroundColor: Colors.tealAccent,
+        primaryColor: Colors.tealAccent,
+        textTheme: TextTheme(
+          displayLarge: TextStyle(
+            color: Colors.tealAccent.shade100,
+            fontFamily: GoogleFonts.pressStart2p().fontFamily,
+          ),
+        ),
+      ),
+      routes: {
+        HomeScreen.route: (context) => const HomeScreen(),
+        GameScreen.route: (context) => const GameScreen(),
+        SettingScreen.route: (context) => const SettingScreen(),
+      },
     );
   }
 }
