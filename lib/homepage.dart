@@ -1,3 +1,6 @@
+import 'dart:html';
+
+import 'package:brick_breaker/cache.dart';
 import 'package:brick_breaker/gamepage.dart';
 import 'package:brick_breaker/settings.dart';
 import 'package:flutter/material.dart';

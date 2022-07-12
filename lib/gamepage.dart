@@ -3,9 +3,10 @@ import 'dart:async';
 // import 'dart:html';
 
 import 'package:brick_breaker/bricks.dart';
+import 'package:brick_breaker/cache.dart';
 import 'package:brick_breaker/homepage.dart';
+import 'package:brick_breaker/main.dart';
 import 'package:brick_breaker/player.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,7 +32,7 @@ class _GameScreenState extends State<GameScreen> {
   //Ball variables :-
   double ballX = 0.0;
   double ballY = 0.0;
-  double ballSpeed = 0.01;
+  double? ballSpeed = 0.015;
   direction ballXdir = direction.LEFT;
   direction ballYdir = direction.DOWN;
 
@@ -39,7 +40,7 @@ class _GameScreenState extends State<GameScreen> {
   double playerX =
       -0.2; // its value is -0.5 *(playerWidth) to ensure that the player bar initially remains in the centre
   double playerWidth = 0.4; // (out of 2)
-  double playerSpeed =
+  double? playerSpeed =
       0.2; //(Three working values : 0.1, 0.2, 0.4, the larger, the faster it moves)
 
   //Brick variables :-
@@ -49,7 +50,7 @@ class _GameScreenState extends State<GameScreen> {
   static double firstBrickX = -1 + wallGap;
   static double firstBrickY = -0.9;
   static double brickWidth = 0.4;
-  static double brickHeight = 0.05;
+  static double brickHeight = 0.1;
   static double brickGap = 0.05;
 
   List MyBricks = [
@@ -284,32 +285,32 @@ class _GameScreenState extends State<GameScreen> {
     setState(() {
       //Vertical Movement :
       if (ballYdir == direction.DOWN) {
-        ballY += ballSpeed;
+        ballY += ballSpeed!;
       } else if (ballYdir == direction.UP) {
-        ballY -= ballSpeed;
+        ballY -= ballSpeed!;
       }
 
       //Horizontal Movement :
       if (ballXdir == direction.RIGHT) {
-        ballX += 1.5 * ballSpeed;
+        ballX += 1.5 * ballSpeed!;
       } else if (ballXdir == direction.LEFT) {
-        ballX -= 1.5 * ballSpeed;
+        ballX -= 1.5 * ballSpeed!;
       }
     });
   }
 
   void movePlayerLeft() {
-    if (playerX - playerSpeed >= -1) {
+    if (playerX - playerSpeed! >= -1) {
       setState(() {
-        playerX -= playerSpeed;
+        playerX -= playerSpeed!;
       });
     }
   }
 
   void movePlayerRight() {
-    if (playerX + playerWidth + playerSpeed <= 1) {
+    if (playerX + playerWidth + playerSpeed! <= 1) {
       setState(() {
-        playerX += playerSpeed;
+        playerX += playerSpeed!;
       });
     }
   }
@@ -328,6 +329,14 @@ class _GameScreenState extends State<GameScreen> {
         MyBricks[i][2] = false;
       }
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    print('ball SPEED : $ballSpeed');
+    print('player SPEEED : $playerSpeed');
+    super.initState();
   }
 
   @override
@@ -356,12 +365,13 @@ class _GameScreenState extends State<GameScreen> {
                   //1. Tap to Begin :-
                   Visibility(
                     visible: !hasGameStarted,
-                    child: const Align(
-                      alignment: Alignment(0.0, -0.2),
+                    child: Align(
+                      alignment: const Alignment(0.0, -0.2),
                       child: Text(
-                        'Tap to Begin!',
-                        style: TextStyle(
-                          color: Colors.teal,
+                        'tap to begin',
+                        style: GoogleFonts.amaranth(
+                          color: Colors.teal.shade700,
+                          fontSize: 16,
                         ),
                       ),
                     ),
@@ -402,7 +412,7 @@ class _GameScreenState extends State<GameScreen> {
                                   ),
                                   onPressed: resetGame,
                                   child: Text(
-                                    'Retry?',
+                                    'Play Again',
                                     style: GoogleFonts.amaranth(
                                         color: Colors.tealAccent, fontSize: 18),
                                   ),
@@ -426,7 +436,7 @@ class _GameScreenState extends State<GameScreen> {
                                           .popAndPushNamed(HomeScreen.route);
                                     },
                                     child: Text(
-                                      'Return to Home?',
+                                      'Return to Home',
                                       style: GoogleFonts.amaranth(
                                           //color: Colors.green.shade700,
                                           color: Colors.tealAccent,
