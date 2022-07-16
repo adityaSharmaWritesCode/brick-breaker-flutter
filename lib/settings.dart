@@ -1,6 +1,6 @@
 import 'package:brick_breaker/homepage.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingScreen extends StatefulWidget {
   static const route = '/settings';
@@ -11,8 +11,32 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  double ballSpeed = 1.0;
-  double plSpeed = 1.0;
+  double _ballSpeed = 1.0;
+  double _plWidth = 1.0;
+
+  void loadSpeeds() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _ballSpeed = prefs.getDouble('bs') ?? 1.0;
+      _plWidth = prefs.getDouble('pw') ?? 1.0;
+    });
+  }
+
+  void saveSpeeds() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setDouble('bs', _ballSpeed);
+      prefs.setDouble('pw', _plWidth);
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadSpeeds();
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQueryObject = MediaQuery.of(context);
@@ -21,7 +45,7 @@ class _SettingScreenState extends State<SettingScreen> {
       backgroundColor: Colors.teal,
       body: Center(
         child: Container(
-          width: mediaQueryObject.size.width * 0.5,
+          width: mediaQueryObject.size.width * 0.7,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,10 +61,10 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 Text(
                   'Ball Speed',
-                  style: GoogleFonts.amaranth(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
                 ),
                 Row(
                   children: [
@@ -56,11 +80,11 @@ class _SettingScreenState extends State<SettingScreen> {
                       child: Slider(
                         activeColor: Colors.tealAccent,
                         inactiveColor: Colors.grey.shade300,
-                        label: ballSpeed.toString() + 'x',
-                        value: ballSpeed,
+                        label: _ballSpeed.toString() + 'x',
+                        value: _ballSpeed,
                         onChanged: (val) {
                           setState(() {
-                            ballSpeed = val;
+                            _ballSpeed = val;
                           });
                         },
                         min: 0.5,
@@ -77,13 +101,13 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: mediaQueryObject.size.height * 0.015),
+                SizedBox(height: mediaQueryObject.size.height * 0.025),
                 Text(
-                  'Player Speed',
-                  style: GoogleFonts.amaranth(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
+                  'Player Width',
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
                 ),
                 Row(
                   children: [
@@ -99,11 +123,11 @@ class _SettingScreenState extends State<SettingScreen> {
                       child: Slider(
                         activeColor: Colors.tealAccent,
                         inactiveColor: Colors.grey.shade300,
-                        label: plSpeed.toString() + 'x',
-                        value: plSpeed,
+                        label: '${_plWidth}x',
+                        value: _plWidth,
                         onChanged: (val) {
                           setState(() {
-                            plSpeed = val;
+                            _plWidth = val;
                           });
                         },
                         min: 0.5,
@@ -129,14 +153,15 @@ class _SettingScreenState extends State<SettingScreen> {
                         vertical: mediaQueryObject.size.height * 0.015,
                       )),
                   onPressed: () {
-                    Navigator.of(context).popAndPushNamed(HomeScreen.route);
+                    saveSpeeds();
+                    Navigator.of(context).pop();
                   },
                   child: Text(
                     'Save Changes',
-                    style: GoogleFonts.amaranth(
-                      color: Colors.green.shade700,
-                      fontSize: 17.0,
-                    ),
+                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                          color: Colors.green.shade700,
+                          fontSize: 17.0,
+                        ),
                   ),
                 ),
               ]),

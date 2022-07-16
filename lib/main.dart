@@ -20,11 +20,13 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.tealAccent,
         primaryColor: Colors.tealAccent,
         textTheme: TextTheme(
-          displayLarge: TextStyle(
-            color: Colors.tealAccent.shade100,
-            fontFamily: GoogleFonts.pressStart2p().fontFamily,
-          ),
-        ),
+            displayLarge: TextStyle(
+              color: Colors.tealAccent.shade100,
+              fontFamily: 'Press_Start_2P',
+            ),
+            displayMedium: const TextStyle(
+              fontFamily: 'Amaranth',
+            )),
       ),
       routes: {
         HomeScreen.route: (context) => const HomeScreen(),

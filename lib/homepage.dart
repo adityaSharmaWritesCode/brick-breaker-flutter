@@ -1,10 +1,6 @@
-import 'dart:html';
-
-import 'package:brick_breaker/cache.dart';
 import 'package:brick_breaker/gamepage.dart';
 import 'package:brick_breaker/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   static const route = '/';
@@ -43,14 +39,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       vertical: mediaQueryObject.size.height * 0.015,
                     )),
                 onPressed: () {
-                  Navigator.of(context).popAndPushNamed(GameScreen.route);
+                  Navigator.of(context).pushNamed(GameScreen.route);
                 },
                 child: Text(
                   'Start Game',
-                  style: GoogleFonts.amaranth(
-                    color: Colors.green.shade700,
-                    fontSize: 17.0,
-                  ),
+                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        color: Colors.green.shade700,
+                        fontSize: 17.0,
+                      ),
                 ),
               ),
               SizedBox(
@@ -64,12 +60,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         vertical: mediaQueryObject.size.height * 0.015,
                       )),
                   onPressed: () {
-                    Navigator.of(context).popAndPushNamed(SettingScreen.route);
+                    Navigator.of(context).pushNamed(SettingScreen.route);
                   },
                   child: Text(
                     'Settings',
-                    style: GoogleFonts.amaranth(
-                        color: Colors.green.shade700, fontSize: 17.0),
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium!
+                        .copyWith(color: Colors.green.shade700, fontSize: 17.0),
                   )),
             ],
           ),
