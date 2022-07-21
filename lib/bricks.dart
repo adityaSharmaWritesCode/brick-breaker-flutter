@@ -7,7 +7,7 @@ class MyBrick extends StatelessWidget {
   final double brickWidth;
   final bool brickBroken;
 
-  MyBrick({
+  const MyBrick({
     required this.brickX,
     required this.brickY,
     required this.brickHeight,

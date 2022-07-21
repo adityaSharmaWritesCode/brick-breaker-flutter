@@ -379,7 +379,7 @@ class _GameScreenState extends State<GameScreen> {
                                   .displayLarge!
                                   .copyWith(
                                     fontSize: kIsWeb
-                                        ? mediaQueryObject.size.width * 0.035
+                                        ? mediaQueryObject.size.width * 0.03
                                         : mediaQueryObject.size.height * 0.025,
                                     color: Colors.teal,
                                   ),
@@ -395,15 +395,17 @@ class _GameScreenState extends State<GameScreen> {
                                     padding: EdgeInsets.symmetric(
                                       horizontal:
                                           mediaQueryObject.size.width * 0.02,
-                                      vertical:
-                                          mediaQueryObject.size.height * 0.015,
+                                      vertical: kIsWeb
+                                          ? mediaQueryObject.size.height * 0.02
+                                          : mediaQueryObject.size.height *
+                                              0.015,
                                     ),
                                   ),
                                   onPressed: resetGame,
                                   child: Icon(
                                     Icons.replay,
                                     size: kIsWeb
-                                        ? 18
+                                        ? 20
                                         : mediaQueryObject.size.height * 0.03,
                                     color: Colors.tealAccent,
                                   ),
@@ -417,8 +419,11 @@ class _GameScreenState extends State<GameScreen> {
                                       padding: EdgeInsets.symmetric(
                                         horizontal:
                                             mediaQueryObject.size.width * 0.02,
-                                        vertical: mediaQueryObject.size.height *
-                                            0.015,
+                                        vertical: kIsWeb
+                                            ? mediaQueryObject.size.height *
+                                                0.02
+                                            : mediaQueryObject.size.height *
+                                                0.015,
                                       )),
                                   onPressed: () {
                                     Navigator.of(context).pop();
@@ -426,7 +431,7 @@ class _GameScreenState extends State<GameScreen> {
                                   child: Icon(
                                     Icons.home_outlined,
                                     size: kIsWeb
-                                        ? 18
+                                        ? 20
                                         : mediaQueryObject.size.height * 0.03,
                                     color: Colors.tealAccent,
                                   ),

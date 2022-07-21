@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
       initialRoute: HomeScreen.route,
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: Colors.tealAccent.shade700,
-        //primaryColor: const Color(0xFF58CDBD),
         primaryColor: Colors.tealAccent.shade700,
         cardColor: const Color(0xFFDFF3E8),
         textTheme: TextTheme(

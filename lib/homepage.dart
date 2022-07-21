@@ -26,10 +26,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 kIsWeb
                     ? 'B R I C K - B R E A K E R'
                     : 'B R I C K \n\nB R E A K E R',
-                style: Theme.of(context)
-                    .textTheme
-                    .displayLarge!
-                    .copyWith(fontSize: mediaQueryObject.size.height * 0.025),
+                style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                    fontSize: kIsWeb
+                        ? mediaQueryObject.size.width * 0.035
+                        : mediaQueryObject.size.height * 0.025),
                 textAlign: TextAlign.center,
               ),
               SizedBox(
@@ -43,14 +43,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         primary: Theme.of(context).primaryColor,
                         padding: EdgeInsets.symmetric(
                           horizontal: mediaQueryObject.size.width * 0.02,
-                          vertical: mediaQueryObject.size.height * 0.015,
+                          vertical: kIsWeb
+                              ? mediaQueryObject.size.height * 0.02
+                              : mediaQueryObject.size.height * 0.015,
                         )),
                     onPressed: () {
                       Navigator.of(context).pushNamed(GameScreen.route);
                     },
                     child: Icon(
                       Icons.play_arrow_rounded,
-                      size: kIsWeb ? 17 : mediaQueryObject.size.height * 0.03,
+                      size: kIsWeb ? 20 : mediaQueryObject.size.height * 0.03,
                     ),
                   ),
                   SizedBox(
@@ -61,14 +63,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         primary: Theme.of(context).primaryColor,
                         padding: EdgeInsets.symmetric(
                           horizontal: mediaQueryObject.size.width * 0.02,
-                          vertical: mediaQueryObject.size.height * 0.015,
+                          vertical: kIsWeb
+                              ? mediaQueryObject.size.height * 0.02
+                              : mediaQueryObject.size.height * 0.015,
                         )),
                     onPressed: () {
                       Navigator.of(context).pushNamed(SettingScreen.route);
                     },
                     child: Icon(
                       Icons.settings_rounded,
-                      size: kIsWeb ? 17 : mediaQueryObject.size.height * 0.03,
+                      size: kIsWeb ? 20 : mediaQueryObject.size.height * 0.03,
                     ),
                   ),
                 ],

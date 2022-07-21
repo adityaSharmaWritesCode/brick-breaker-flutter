@@ -54,7 +54,9 @@ class _SettingScreenState extends State<SettingScreen> {
                 Text(
                   'S E T T I N G S',
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                        fontSize: mediaQueryObject.size.height * 0.02,
+                        fontSize: kIsWeb
+                            ? mediaQueryObject.size.width * 0.03
+                            : mediaQueryObject.size.height * 0.02,
                       ),
                 ),
                 SizedBox(
@@ -102,7 +104,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: mediaQueryObject.size.height * 0.025),
+                SizedBox(height: mediaQueryObject.size.height * 0.03),
                 Text(
                   'Player Width',
                   style: Theme.of(context).textTheme.displayMedium!.copyWith(
@@ -145,7 +147,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: mediaQueryObject.size.height * 0.04),
+                SizedBox(height: mediaQueryObject.size.height * 0.05),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -154,14 +156,16 @@ class _SettingScreenState extends State<SettingScreen> {
                           primary: Theme.of(context).primaryColor,
                           padding: EdgeInsets.symmetric(
                             horizontal: mediaQueryObject.size.width * 0.02,
-                            vertical: mediaQueryObject.size.height * 0.015,
+                            vertical: kIsWeb
+                                ? mediaQueryObject.size.height * 0.02
+                                : mediaQueryObject.size.height * 0.015,
                           )),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                       child: Icon(
                         Icons.cancel_sharp,
-                        size: kIsWeb ? 17 : mediaQueryObject.size.height * 0.03,
+                        size: kIsWeb ? 20 : mediaQueryObject.size.height * 0.03,
                       ),
                     ),
                     SizedBox(
@@ -169,18 +173,21 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          primary: Theme.of(context).primaryColor,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: mediaQueryObject.size.width * 0.02,
-                            vertical: mediaQueryObject.size.height * 0.015,
-                          )),
+                        primary: Theme.of(context).primaryColor,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: mediaQueryObject.size.width * 0.02,
+                          vertical: kIsWeb
+                              ? mediaQueryObject.size.height * 0.02
+                              : mediaQueryObject.size.height * 0.015,
+                        ),
+                      ),
                       onPressed: () {
                         saveSpeeds();
                         Navigator.of(context).pop();
                       },
                       child: Icon(
                         Icons.save,
-                        size: kIsWeb ? 17 : mediaQueryObject.size.height * 0.03,
+                        size: kIsWeb ? 20 : mediaQueryObject.size.height * 0.03,
                       ),
                     ),
                   ],
