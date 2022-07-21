@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:brick_breaker/bricks.dart';
 import 'package:brick_breaker/player.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,7 +21,6 @@ enum direction {
   DOWN,
   LEFT,
   RIGHT,
-  NULL,
 }
 
 class _GameScreenState extends State<GameScreen> {
@@ -72,46 +72,26 @@ class _GameScreenState extends State<GameScreen> {
       firstBrickY + 1 * (brickHeight + brickGap),
       false
     ],
-    // [
-    //   firstBrickX + 0 * (brickWidth + brickGap),
-    //   firstBrickY + 2 * (brickHeight + brickGap),
-    //   false
-    // ],
-    // [
-    //   firstBrickX + 1 * (brickWidth + brickGap),
-    //   firstBrickY + 2 * (brickHeight + brickGap),
-    //   false
-    // ],
-    // [
-    //   firstBrickX + 2 * (brickWidth + brickGap),
-    //   firstBrickY + 2 * (brickHeight + brickGap),
-    //   false
-    // ],
-    // [
-    //   firstBrickX + 3 * (brickWidth + brickGap),
-    //   firstBrickY + 2 * (brickHeight + brickGap),
-    //   false
-    // ],
-    // [
-    //   firstBrickX + 0 * (brickWidth + brickGap),
-    //   firstBrickY + 3 * (brickHeight + brickGap),
-    //   false
-    // ],
-    // [
-    //   firstBrickX + 1 * (brickWidth + brickGap),
-    //   firstBrickY + 3 * (brickHeight + brickGap),
-    //   false
-    // ],
-    // [
-    //   firstBrickX + 2 * (brickWidth + brickGap),
-    //   firstBrickY + 3 * (brickHeight + brickGap),
-    //   false
-    // ],
-    // [
-    //   firstBrickX + 3 * (brickWidth + brickGap),
-    //   firstBrickY + 3 * (brickHeight + brickGap),
-    //   false
-    // ],
+    [
+      firstBrickX + 0 * (brickWidth + brickGap),
+      firstBrickY + 2 * (brickHeight + brickGap),
+      false
+    ],
+    [
+      firstBrickX + 1 * (brickWidth + brickGap),
+      firstBrickY + 2 * (brickHeight + brickGap),
+      false
+    ],
+    [
+      firstBrickX + 2 * (brickWidth + brickGap),
+      firstBrickY + 2 * (brickHeight + brickGap),
+      false
+    ],
+    [
+      firstBrickX + 3 * (brickWidth + brickGap),
+      firstBrickY + 2 * (brickHeight + brickGap),
+      false
+    ],
   ];
 
   //Game settings :-
@@ -239,7 +219,7 @@ class _GameScreenState extends State<GameScreen> {
   bool isPlayerDead() {
     if (ballY > 0.94) {
       setState(() {
-        endText = 'G A M E  O V E R !';
+        endText = 'GAME OVER!';
       });
       return true;
     }
@@ -249,7 +229,7 @@ class _GameScreenState extends State<GameScreen> {
   bool areAllBricksBroken() {
     if (brokenBrickCounter == MyBricks.length) {
       setState(() {
-        endText = 'Y O U  W O N !';
+        endText = 'YOU WON!';
       });
       return true;
     }
@@ -398,8 +378,9 @@ class _GameScreenState extends State<GameScreen> {
                                   .textTheme
                                   .displayLarge!
                                   .copyWith(
-                                    fontSize:
-                                        mediaQueryObject.size.width * 0.03,
+                                    fontSize: kIsWeb
+                                        ? mediaQueryObject.size.width * 0.035
+                                        : mediaQueryObject.size.height * 0.025,
                                     color: Colors.teal,
                                   ),
                             ),
@@ -413,50 +394,43 @@ class _GameScreenState extends State<GameScreen> {
                                     primary: Colors.teal,
                                     padding: EdgeInsets.symmetric(
                                       horizontal:
-                                          mediaQueryObject.size.width * 0.015,
+                                          mediaQueryObject.size.width * 0.02,
                                       vertical:
                                           mediaQueryObject.size.height * 0.015,
                                     ),
                                   ),
                                   onPressed: resetGame,
-                                  child: Text(
-                                    'Play Again',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayMedium!
-                                        .copyWith(
-                                          color: Colors.tealAccent,
-                                          fontSize: 18,
-                                        ),
+                                  child: Icon(
+                                    Icons.replay,
+                                    size: kIsWeb
+                                        ? 18
+                                        : mediaQueryObject.size.height * 0.03,
+                                    color: Colors.tealAccent,
                                   ),
                                 ),
                                 SizedBox(
-                                  width: mediaQueryObject.size.width * 0.02,
+                                  width: mediaQueryObject.size.width * 0.03,
                                 ),
                                 ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Colors.teal,
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal:
-                                              mediaQueryObject.size.width *
-                                                  0.015,
-                                          vertical:
-                                              mediaQueryObject.size.height *
-                                                  0.015,
-                                        )),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(
-                                      'Return to Home',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium!
-                                          .copyWith(
-                                            color: Colors.tealAccent,
-                                            fontSize: 18,
-                                          ),
-                                    ))
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.teal,
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal:
+                                            mediaQueryObject.size.width * 0.02,
+                                        vertical: mediaQueryObject.size.height *
+                                            0.015,
+                                      )),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Icon(
+                                    Icons.home_outlined,
+                                    size: kIsWeb
+                                        ? 18
+                                        : mediaQueryObject.size.height * 0.03,
+                                    color: Colors.tealAccent,
+                                  ),
+                                ),
                               ],
                             ),
                           ],
@@ -573,64 +547,34 @@ class _GameScreenState extends State<GameScreen> {
                   ),
 
                   //Row 3 :-
-                  // MyBrick(
-                  //   brickX: MyBricks[8][0],
-                  //   brickY: MyBricks[8][1],
-                  //   brickHeight: brickHeight,
-                  //   brickWidth: brickWidth,
-                  //   brickBroken: MyBricks[8][2],
-                  // ),
-                  // MyBrick(
-                  //   brickX: MyBricks[9][0],
-                  //   brickY: MyBricks[9][1],
-                  //   brickHeight: brickHeight,
-                  //   brickWidth: brickWidth,
-                  //   brickBroken: MyBricks[9][2],
-                  // ),
-                  // MyBrick(
-                  //   brickX: MyBricks[10][0],
-                  //   brickY: MyBricks[10][1],
-                  //   brickHeight: brickHeight,
-                  //   brickWidth: brickWidth,
-                  //   brickBroken: MyBricks[10][2],
-                  // ),
-                  // MyBrick(
-                  //   brickX: MyBricks[11][0],
-                  //   brickY: MyBricks[11][1],
-                  //   brickHeight: brickHeight,
-                  //   brickWidth: brickWidth,
-                  //   brickBroken: MyBricks[11][2],
-                  // ),
-
-                  // //Row 4 :-
-                  // MyBrick(
-                  //   brickX: MyBricks[12][0],
-                  //   brickY: MyBricks[12][1],
-                  //   brickHeight: brickHeight,
-                  //   brickWidth: brickWidth,
-                  //   brickBroken: MyBricks[12][2],
-                  // ),
-                  // MyBrick(
-                  //   brickX: MyBricks[13][0],
-                  //   brickY: MyBricks[13][1],
-                  //   brickHeight: brickHeight,
-                  //   brickWidth: brickWidth,
-                  //   brickBroken: MyBricks[13][2],
-                  // ),
-                  // MyBrick(
-                  //   brickX: MyBricks[14][0],
-                  //   brickY: MyBricks[14][1],
-                  //   brickHeight: brickHeight,
-                  //   brickWidth: brickWidth,
-                  //   brickBroken: MyBricks[14][2],
-                  // ),
-                  // MyBrick(
-                  //   brickX: MyBricks[15][0],
-                  //   brickY: MyBricks[15][1],
-                  //   brickHeight: brickHeight,
-                  //   brickWidth: brickWidth,
-                  //   brickBroken: MyBricks[15][2],
-                  // ),
+                  MyBrick(
+                    brickX: MyBricks[8][0],
+                    brickY: MyBricks[8][1],
+                    brickHeight: brickHeight,
+                    brickWidth: brickWidth,
+                    brickBroken: MyBricks[8][2],
+                  ),
+                  MyBrick(
+                    brickX: MyBricks[9][0],
+                    brickY: MyBricks[9][1],
+                    brickHeight: brickHeight,
+                    brickWidth: brickWidth,
+                    brickBroken: MyBricks[9][2],
+                  ),
+                  MyBrick(
+                    brickX: MyBricks[10][0],
+                    brickY: MyBricks[10][1],
+                    brickHeight: brickHeight,
+                    brickWidth: brickWidth,
+                    brickBroken: MyBricks[10][2],
+                  ),
+                  MyBrick(
+                    brickX: MyBricks[11][0],
+                    brickY: MyBricks[11][1],
+                    brickHeight: brickHeight,
+                    brickWidth: brickWidth,
+                    brickBroken: MyBricks[11][2],
+                  ),
                 ],
               ),
             ),

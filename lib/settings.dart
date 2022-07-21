@@ -1,4 +1,5 @@
 import 'package:brick_breaker/homepage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -53,7 +54,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 Text(
                   'S E T T I N G S',
                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                        fontSize: mediaQueryObject.size.width * 0.03,
+                        fontSize: mediaQueryObject.size.height * 0.02,
                       ),
                 ),
                 SizedBox(
@@ -79,7 +80,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       flex: 10,
                       child: Slider(
                         activeColor: Colors.tealAccent,
-                        inactiveColor: Colors.grey.shade300,
+                        inactiveColor: Theme.of(context).cardColor,
                         label: _ballSpeed.toString() + 'x',
                         value: _ballSpeed,
                         onChanged: (val) {
@@ -122,7 +123,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       flex: 10,
                       child: Slider(
                         activeColor: Colors.tealAccent,
-                        inactiveColor: Colors.grey.shade300,
+                        inactiveColor: Theme.of(context).cardColor,
                         label: '${_plWidth}x',
                         value: _plWidth,
                         onChanged: (val) {
@@ -145,24 +146,44 @@ class _SettingScreenState extends State<SettingScreen> {
                   ],
                 ),
                 SizedBox(height: mediaQueryObject.size.height * 0.04),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).primaryColor,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: mediaQueryObject.size.width * 0.015,
-                        vertical: mediaQueryObject.size.height * 0.015,
-                      )),
-                  onPressed: () {
-                    saveSpeeds();
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'Save Changes',
-                    style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                          color: Colors.green.shade700,
-                          fontSize: 17.0,
-                        ),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Theme.of(context).primaryColor,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: mediaQueryObject.size.width * 0.02,
+                            vertical: mediaQueryObject.size.height * 0.015,
+                          )),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Icon(
+                        Icons.cancel_sharp,
+                        size: kIsWeb ? 17 : mediaQueryObject.size.height * 0.03,
+                      ),
+                    ),
+                    SizedBox(
+                      width: mediaQueryObject.size.width * 0.03,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Theme.of(context).primaryColor,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: mediaQueryObject.size.width * 0.02,
+                            vertical: mediaQueryObject.size.height * 0.015,
+                          )),
+                      onPressed: () {
+                        saveSpeeds();
+                        Navigator.of(context).pop();
+                      },
+                      child: Icon(
+                        Icons.save,
+                        size: kIsWeb ? 17 : mediaQueryObject.size.height * 0.03,
+                      ),
+                    ),
+                  ],
                 ),
               ]),
         ),
