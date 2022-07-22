@@ -1,5 +1,5 @@
 # brick-breaker-flutter
-An interactive game developed only through flutter that is modelled after the popular arcade game *Breakout*. It can be played across platforms on ios, Android, and even on your desktop through the Web.
+An interactive game developed only through flutter that is modelled after the popular arcade game *Breakout*. It can be played across platforms on ios, Android, and even on desktop through the Web.
 
 ### Demo Link : 
 
