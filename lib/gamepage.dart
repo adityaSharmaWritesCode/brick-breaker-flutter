@@ -47,7 +47,7 @@ class _GameScreenState extends State<GameScreen> {
   static double brickHeight = 0.1;
   static double brickGap = 0.05;
 
-  List MyBricks = [
+  List brickList = [
     [firstBrickX, firstBrickY, false],
     [firstBrickX + 1 * (brickWidth + brickGap), firstBrickY, false],
     [firstBrickX + 2 * (brickWidth + brickGap), firstBrickY, false],
@@ -93,6 +93,22 @@ class _GameScreenState extends State<GameScreen> {
       false
     ],
   ];
+
+  List<Widget> generateBricks() {
+    List<Widget> list = [];
+    for (int i = 0; i < brickList.length; i++) {
+      list.add(
+        MyBrick(
+          brickX: brickList[i][0],
+          brickY: brickList[i][1],
+          brickHeight: brickHeight,
+          brickWidth: brickWidth,
+          brickBroken: brickList[i][2],
+        ),
+      );
+    }
+    return list;
+  }
 
   //Game settings :-
   bool hasGameStarted = false;
@@ -155,15 +171,15 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void checkForBrokenBricks() {
-    for (int i = 0; i < MyBricks.length; i++) {
-      if (ballX >= MyBricks[i][0] &&
-              ballX <= MyBricks[i][0] + brickWidth &&
-              ballY <= MyBricks[i][1] + brickHeight &&
-              MyBricks[i][2] == false
-          // && ballY >= MyBricks[i][1]) {
+    for (int i = 0; i < brickList.length; i++) {
+      if (ballX >= brickList[i][0] &&
+              ballX <= brickList[i][0] + brickWidth &&
+              ballY <= brickList[i][1] + brickHeight &&
+              brickList[i][2] == false
+          // && ballY >= brickList[i][1]) {
           ) {
         setState(() {
-          MyBricks[i][2] = true;
+          brickList[i][2] = true;
           brokenBrickCounter++;
           //Update ball's direction
           //Now to do this, we must determine which side of the brick has been hit
@@ -171,10 +187,10 @@ class _GameScreenState extends State<GameScreen> {
 
           //To do this, we can compute the distance of the ball from each side of the brick
           //The shortest distance will correspond to the side of the brick that has been hit
-          double leftSideDist = (MyBricks[i][0] - ballX).abs();
-          double rightSideDist = (MyBricks[i][0] + brickWidth - ballX).abs();
-          double topSideDist = (MyBricks[i][1] - ballY).abs();
-          double bottomSideDist = (MyBricks[i][1] + brickHeight - ballY).abs();
+          double leftSideDist = (brickList[i][0] - ballX).abs();
+          double rightSideDist = (brickList[i][0] + brickWidth - ballX).abs();
+          double topSideDist = (brickList[i][1] - ballY).abs();
+          double bottomSideDist = (brickList[i][1] + brickHeight - ballY).abs();
 
           String min = findMinDist(
               leftSideDist, rightSideDist, topSideDist, bottomSideDist);
@@ -227,7 +243,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   bool areAllBricksBroken() {
-    if (brokenBrickCounter == MyBricks.length) {
+    if (brokenBrickCounter == brickList.length) {
       setState(() {
         endText = 'YOU WON!';
       });
@@ -313,8 +329,8 @@ class _GameScreenState extends State<GameScreen> {
       ballXdir = direction.LEFT;
       ballYdir = direction.DOWN;
       playerX = -0.5 * (playerWidth);
-      for (int i = 0; i < MyBricks.length; i++) {
-        MyBricks[i][2] = false;
+      for (int i = 0; i < brickList.length; i++) {
+        brickList[i][2] = false;
       }
     });
   }
@@ -355,7 +371,7 @@ class _GameScreenState extends State<GameScreen> {
                     child: Align(
                       alignment: const Alignment(0.0, -0.2),
                       child: Text(
-                        'tap to begin',
+                        kIsWeb ? 'click to begin' : 'tap to begin',
                         style:
                             Theme.of(context).textTheme.displayMedium!.copyWith(
                                   color: Colors.teal.shade700,
@@ -453,133 +469,13 @@ class _GameScreenState extends State<GameScreen> {
                   ),
 
                   //PLAYER
-                  //GestureDetector(
-                  // onHorizontalDragUpdate: ((details) {
-                  //   print(details.delta.dx);
-                  //   movePlayer(details.localPosition.dx);
-                  //   // if (details.localPosition.dx > 0) {
-                  //   //   movePlayerRight();
-                  //   // } else if (details.delta.dx <= 0) {
-                  //   //   movePlayerLeft();
-                  //   // } else {
-                  //   //   print('I DONT KNOW WHATS GOING ON');
-                  //   // }
-                  // }),
-                  //child:
                   MyPlayer(
                     playerX: playerX,
                     playerWidth: playerWidth,
                   ),
-                  //),
-
-                  // Positioned(
-                  //   bottom: mediaQueryObject.size.height * 0.025,
-                  //   left: _ppX,
-                  //   child: Draggable(
-                  //     feedback: Container(),
-                  //     child: MyPlayer(
-                  //       playerX: _ppX,
-                  //       playerWidth: playerWidth,
-                  //     ),
-                  //     onDragUpdate: (dragDetails) {
-                  //       setState(() {
-                  //         _ppX = dragDetails.localPosition.dx;
-                  //       });
-                  //     },
-                  //   ),
-                  // ),
 
                   //BRICKS
-
-                  //Row 1 :-
-                  MyBrick(
-                    brickX: MyBricks[0][0],
-                    brickY: MyBricks[0][1],
-                    brickHeight: brickHeight,
-                    brickWidth: brickWidth,
-                    brickBroken: MyBricks[0][2],
-                  ),
-                  MyBrick(
-                    brickX: MyBricks[1][0],
-                    brickY: MyBricks[1][1],
-                    brickHeight: brickHeight,
-                    brickWidth: brickWidth,
-                    brickBroken: MyBricks[1][2],
-                  ),
-                  MyBrick(
-                    brickX: MyBricks[2][0],
-                    brickY: MyBricks[2][1],
-                    brickHeight: brickHeight,
-                    brickWidth: brickWidth,
-                    brickBroken: MyBricks[2][2],
-                  ),
-                  MyBrick(
-                    brickX: MyBricks[3][0],
-                    brickY: MyBricks[3][1],
-                    brickHeight: brickHeight,
-                    brickWidth: brickWidth,
-                    brickBroken: MyBricks[3][2],
-                  ),
-
-                  //Row 2 :-
-                  MyBrick(
-                    brickX: MyBricks[4][0],
-                    brickY: MyBricks[4][1],
-                    brickHeight: brickHeight,
-                    brickWidth: brickWidth,
-                    brickBroken: MyBricks[4][2],
-                  ),
-                  MyBrick(
-                    brickX: MyBricks[5][0],
-                    brickY: MyBricks[5][1],
-                    brickHeight: brickHeight,
-                    brickWidth: brickWidth,
-                    brickBroken: MyBricks[5][2],
-                  ),
-                  MyBrick(
-                    brickX: MyBricks[6][0],
-                    brickY: MyBricks[6][1],
-                    brickHeight: brickHeight,
-                    brickWidth: brickWidth,
-                    brickBroken: MyBricks[6][2],
-                  ),
-                  MyBrick(
-                    brickX: MyBricks[7][0],
-                    brickY: MyBricks[7][1],
-                    brickHeight: brickHeight,
-                    brickWidth: brickWidth,
-                    brickBroken: MyBricks[7][2],
-                  ),
-
-                  //Row 3 :-
-                  MyBrick(
-                    brickX: MyBricks[8][0],
-                    brickY: MyBricks[8][1],
-                    brickHeight: brickHeight,
-                    brickWidth: brickWidth,
-                    brickBroken: MyBricks[8][2],
-                  ),
-                  MyBrick(
-                    brickX: MyBricks[9][0],
-                    brickY: MyBricks[9][1],
-                    brickHeight: brickHeight,
-                    brickWidth: brickWidth,
-                    brickBroken: MyBricks[9][2],
-                  ),
-                  MyBrick(
-                    brickX: MyBricks[10][0],
-                    brickY: MyBricks[10][1],
-                    brickHeight: brickHeight,
-                    brickWidth: brickWidth,
-                    brickBroken: MyBricks[10][2],
-                  ),
-                  MyBrick(
-                    brickX: MyBricks[11][0],
-                    brickY: MyBricks[11][1],
-                    brickHeight: brickHeight,
-                    brickWidth: brickWidth,
-                    brickBroken: MyBricks[11][2],
-                  ),
+                  ...generateBricks(),
                 ],
               ),
             ),
