@@ -5,6 +5,14 @@ An interactive game developed only through flutter that is modelled after the po
 
 ### Web UI :
 
+![Home Page](https://user-images.githubusercontent.com/87749440/180616200-913e7295-81e0-4d6b-9b3a-bb3875df4e94.png)
+
+![Settings Page](https://user-images.githubusercontent.com/87749440/180616213-fd8d66e9-0951-41a3-9231-2ca3cb12e0e6.png)
+
+![Game Screen](https://user-images.githubusercontent.com/87749440/180616220-70ca083f-2b33-445a-bd4e-988c019f152d.png)
+
+![Game Over](https://user-images.githubusercontent.com/87749440/180616223-f92ae2af-5816-4969-a8c8-1428b21b994c.png)
+
 ### Android UI :
 
 ### Code Explanation :
