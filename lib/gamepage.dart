@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GameScreen extends StatefulWidget {
-  static const route = '/gameScreen';
+  static const route = '/game';
 
   const GameScreen({Key? key}) : super(key: key);
 
