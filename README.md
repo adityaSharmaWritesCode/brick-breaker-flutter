@@ -2,10 +2,10 @@
 An interactive game developed only through flutter that is modelled after the popular arcade game *Breakout*. It can be played across platforms on ios, Android, and even on desktop through the Web.
 
 ### Demo Link : 
-
+<!--
 ### Web UI :
 
-![Home Page](https://user-images.githubusercontent.com/87749440/180616200-913e7295-81e0-4d6b-9b3a-bb3875df4e94.png)
+ ![Home Page](https://user-images.githubusercontent.com/87749440/180616200-913e7295-81e0-4d6b-9b3a-bb3875df4e94.png)
 
 ![Settings Page](https://user-images.githubusercontent.com/87749440/180616213-fd8d66e9-0951-41a3-9231-2ca3cb12e0e6.png)
 
@@ -14,7 +14,7 @@ An interactive game developed only through flutter that is modelled after the po
 ![Game Over](https://user-images.githubusercontent.com/87749440/180616223-f92ae2af-5816-4969-a8c8-1428b21b994c.png)
 
 ### Android UI :
-
+-->
 ### Code Explanation :
 
 This game can be boiled down to the interactions between 3 separate objects : 
